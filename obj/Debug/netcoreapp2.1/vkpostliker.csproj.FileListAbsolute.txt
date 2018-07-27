@@ -1,0 +1,11 @@
+/home/sektor/mydocs/projects/netcore/vkpostliker/obj/Debug/netcoreapp2.1/vkpostliker.csprojAssemblyReference.cache
+/home/sektor/mydocs/projects/netcore/vkpostliker/obj/Debug/netcoreapp2.1/vkpostliker.csproj.CoreCompileInputs.cache
+/home/sektor/mydocs/projects/netcore/vkpostliker/obj/Debug/netcoreapp2.1/vkpostliker.AssemblyInfoInputs.cache
+/home/sektor/mydocs/projects/netcore/vkpostliker/obj/Debug/netcoreapp2.1/vkpostliker.AssemblyInfo.cs
+/home/sektor/mydocs/projects/netcore/vkpostliker/bin/Debug/netcoreapp2.1/vkpostliker.deps.json
+/home/sektor/mydocs/projects/netcore/vkpostliker/bin/Debug/netcoreapp2.1/vkpostliker.runtimeconfig.json
+/home/sektor/mydocs/projects/netcore/vkpostliker/bin/Debug/netcoreapp2.1/vkpostliker.runtimeconfig.dev.json
+/home/sektor/mydocs/projects/netcore/vkpostliker/bin/Debug/netcoreapp2.1/vkpostliker.dll
+/home/sektor/mydocs/projects/netcore/vkpostliker/bin/Debug/netcoreapp2.1/vkpostliker.pdb
+/home/sektor/mydocs/projects/netcore/vkpostliker/obj/Debug/netcoreapp2.1/vkpostliker.dll
+/home/sektor/mydocs/projects/netcore/vkpostliker/obj/Debug/netcoreapp2.1/vkpostliker.pdb
