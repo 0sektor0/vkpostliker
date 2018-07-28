@@ -13,33 +13,32 @@ namespace vkpostliker
     {
         static void Main(string[] args)
         {
-            UsersList users = AccountReader.GetUsers("./data/users.json");
-            foreach (User u in users.Users)
-                AddLike(u, 50, 0);
-            Console.WriteLine("done");
+            Settings settings = AccountReader.GetUsers("./data/settings.json");
+            foreach(Group g in settings.Groups)
+                foreach (User u in settings.Users)
+                    AddLike(u, g);
+
+            Console.WriteLine($"success {DateTime.UtcNow}");
         }
 
 
-        static void AddLike(User u, int count, int offset)
+        static void AddLike(User u, Group g)
         {
-            Token t = null;
-
             try
             {
-                t = new Token(u.Login, u.Password, 274556);
-                Console.WriteLine($"{u.Login}: authorized");
+                Token t = new Token(u.Login, u.Password, 274556);
+                Console.WriteLine($"{u.Login}: authorized");    
+
+                ApiClient cl = new ApiClient(t, 3);
+                List<WallPost> posts = cl.WallGet(g.Id, g.Count, g.Offset);
+                Console.WriteLine($"posts: {posts.Count}");
+
+                cl.AddLike(posts);
             }
-            catch
+            catch(Exception e)
             {
-                Console.WriteLine($"{u.Login}: not authorized");
+                Console.WriteLine(e.Message);
             }
-
-            ApiClient cl = new ApiClient(t, 3);
-            //List<WallPost> posts = cl.WallGet(-129223693, count, offset);
-            List<WallPost> posts = cl.WallGet(-121519170, count, offset);
-            Console.WriteLine($"posts: {posts.Count}");
-
-            cl.AddLike(posts);
         }
     }
 }

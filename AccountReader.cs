@@ -9,12 +9,15 @@ using Newtonsoft.Json.Converters;
 
 namespace vkpostliker
 {
-    public class UsersList
+    public class Settings
     {
         [JsonProperty("users", Required = Required.Always)]
         public List<User> Users { get; set; }
 
-        public static UsersList FromJson(string json) => JsonConvert.DeserializeObject<UsersList>(json, vkpostliker.Converter.Settings);
+        [JsonProperty("groups", Required = Required.Always)]
+        public List<Group> Groups { get; set; }
+
+        public static Settings FromJson(string json) => JsonConvert.DeserializeObject<Settings>(json, vkpostliker.Converter.Settings);
     }
 
 
@@ -30,9 +33,23 @@ namespace vkpostliker
 
 
 
+    public class Group
+    {
+        [JsonProperty("id", Required = Required.Always)]
+        public int Id { get; set; }
+
+        [JsonProperty("count", Required = Required.Always)]
+        public int Count { get; set; }
+
+        [JsonProperty("offset", Required = Required.Always)]
+        public int Offset { get; set; }
+    }
+
+
+
     public static class Serialize
     {
-        public static string ToJson(this UsersList self) => JsonConvert.SerializeObject(self, vkpostliker.Converter.Settings);
+        public static string ToJson(this Settings self) => JsonConvert.SerializeObject(self, vkpostliker.Converter.Settings);
     }
 
 
@@ -52,13 +69,13 @@ namespace vkpostliker
 
     public class AccountReader
     {
-        static public UsersList GetUsers(string filename)
+        static public Settings GetUsers(string filename)
         {
             if(!File.Exists(filename))
                 throw new FileNotFoundException($"{filename} not found");
 
             using(StreamReader sr = new StreamReader(filename))
-            return UsersList.FromJson(sr.ReadToEnd());
+            return Settings.FromJson(sr.ReadToEnd());
         }
     }
 }
