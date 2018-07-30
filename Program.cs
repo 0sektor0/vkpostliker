@@ -19,7 +19,7 @@ namespace vkpostliker
             foreach (User u in settings.Users)
                 tasks.Add(AddLikesAsync(u, settings.Groups));
 
-            Console.WriteLine($"waiting for {tasks.Count} to finish");
+            Console.WriteLine($"waiting for {tasks.Count} tasks to finish");
             Task.WaitAll(tasks.ToArray());
             Console.WriteLine($"success {DateTime.UtcNow}");
         }
@@ -37,13 +37,16 @@ namespace vkpostliker
                 foreach(Group g in groups)
                 {
                     List<WallPost> posts = cl.WallGet(g.Id, g.Count, g.Offset);
-                    Console.WriteLine($"{u.Login}: posts: {posts.Count}");
                     cl.AddLike(posts);
+                    Console.WriteLine($"{u.Login}: {g.Id} success");
                 }
+                
+                Console.WriteLine($"{u.Login}: success");
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine($"{u.Login}: failed");
             }
         }
 
