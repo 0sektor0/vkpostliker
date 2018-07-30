@@ -60,6 +60,8 @@ namespace sharpvk.Types
                     return TypeEnum.EmptyAttach;
                 case "wall_reply":
                     return TypeEnum.EmptyAttach;
+                default:
+                    return TypeEnum.EmptyAttach;
             }
             throw new Exception($"Cannot unmarshal type TypeEnum: {value}");
         }
@@ -662,13 +664,13 @@ public class Profile
         [JsonProperty("comments")]
         public Comments Comments { get; set; }
 
-        [JsonProperty("likes", Required = Required.Always)]
+        [JsonProperty("likes")]
         public Likes Likes { get; set; }
 
         [JsonProperty("reposts", Required = Required.Always)]
         public Reposts Reposts { get; set; }
 
-        [JsonProperty("views", Required = Required.Always)]
+        [JsonProperty("views")]
         public Views Views { get; set; }
     }
 

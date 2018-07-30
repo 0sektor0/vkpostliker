@@ -14,15 +14,18 @@ namespace vkpostliker
         static void Main(string[] args)
         {
             Settings settings = AccountReader.GetUsers("./data/settings.json");
-            foreach(Group g in settings.Groups)
-                foreach (User u in settings.Users)
-                    AddLike(u, g);
+            List<Task> tasks = new List<Task>();
 
+            foreach (User u in settings.Users)
+                tasks.Add(AddLikesAsync(u, settings.Groups));
+
+            Console.WriteLine($"waiting for {tasks.Count} to finish");
+            Task.WaitAll(tasks.ToArray());
             Console.WriteLine($"success {DateTime.UtcNow}");
         }
 
 
-        static void AddLike(User u, Group g)
+        static void AddLikes(User u, List<Group> groups)
         {
             try
             {
@@ -30,15 +33,24 @@ namespace vkpostliker
                 Console.WriteLine($"{u.Login}: authorized");    
 
                 ApiClient cl = new ApiClient(t, 3);
-                List<WallPost> posts = cl.WallGet(g.Id, g.Count, g.Offset);
-                Console.WriteLine($"posts: {posts.Count}");
 
-                cl.AddLike(posts);
+                foreach(Group g in groups)
+                {
+                    List<WallPost> posts = cl.WallGet(g.Id, g.Count, g.Offset);
+                    Console.WriteLine($"{u.Login}: posts: {posts.Count}");
+                    cl.AddLike(posts);
+                }
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+
+        static Task AddLikesAsync(User u, List<Group> groups)
+        {
+            return Task.Run(() => {AddLikes(u, groups);});
         }
     }
 }
