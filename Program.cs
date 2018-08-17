@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using sharpvk.Types;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace vkpostliker
     {
         static void Main(string[] args)
         {
-            Settings settings = AccountReader.GetUsers("./data/settings.json");
+            Settings settings = AccountReader.GetUsers($"{Directory.GetCurrentDirectory()}/data/settings.json");
             List<Task> tasks = new List<Task>();
 
             foreach (User u in settings.Users)

@@ -680,7 +680,7 @@ public class Profile
         [JsonProperty("count", Required = Required.Always)]
         public int Count { get; set; }
 
-        [JsonProperty("groups_can_post", Required = Required.Always)]
+        [JsonProperty("groups_can_post")]
         public bool GroupsCanPost { get; set; }
 
         [JsonProperty("can_post", Required = Required.Always)]
