@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Web;
 
 
 
@@ -26,7 +27,7 @@ namespace sharpvk
         public string value
         {
             get
-            {
+            { 
                 if (!is_alive)
                     Update();
 
@@ -56,15 +57,6 @@ namespace sharpvk
             this.appid = appid;
             Auth();
         }
-
-
-        private Token(string value, int expires_in)
-        {
-            _value = value;
-            expired_time = DateTime.UtcNow.AddSeconds(expires_in).AddMinutes(-10);
-            is_group = expires_in <= 0; //reserve fo future
-        }
-
 
         private void Auth()
         {
@@ -114,10 +106,23 @@ namespace sharpvk
             response = GetResponse302(request);
 
             res = response.Headers["Location"].Split('=', '&');
+            // I hate this shitty project and myself
+            ParseAuthData(res[3]);
+        }
 
-            _value = res[1];
-            expired_time = DateTime.UtcNow.AddSeconds(Convert.ToInt32(res[3])).AddMinutes(-10);
-            is_group = Convert.ToInt32(res[3]) <= 0; //reserve fo future
+        public void ParseAuthData(string urlStr)
+        {
+            urlStr = HttpUtility.UrlDecode(urlStr);
+            urlStr = HttpUtility.UrlDecode(urlStr);
+            urlStr = urlStr.Replace("#","?");
+            
+            var url = new Uri(urlStr);
+            var token = HttpUtility.ParseQueryString(url.Query).Get("access_token");
+            var expiresIn = Convert.ToInt32(HttpUtility.ParseQueryString(url.Query).Get("expires_in"));
+            
+            _value = token;
+            expired_time = DateTime.UtcNow.AddSeconds(expiresIn).AddMinutes(-10);
+            is_group = expiresIn <= 0;
         }
 
 

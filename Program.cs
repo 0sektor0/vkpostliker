@@ -30,7 +30,7 @@ namespace vkpostliker
         {
             try
             {
-                Token t = new Token(u.Login, u.Password, 274556);
+                Token t = new Token(u.Login, u.Password, 270460);
                 Console.WriteLine($"{u.Login}: authorized");    
 
                 ApiClient cl = new ApiClient(t, 3);
