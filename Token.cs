@@ -68,7 +68,7 @@ namespace sharpvk
             CookieContainer cookie_container = new CookieContainer();
 
             //переходим на страницу авторизации
-            request = (HttpWebRequest)HttpWebRequest.Create($"https://oauth.vk.com/authorize?client_id={appid}&redirect_uri=https://oauth.vk.com/blank.html&scope={scope}&response_type=token&v=5.53&display=wap");
+            request = (HttpWebRequest)HttpWebRequest.Create($"https://oauth.vk.com/authorize?client_id={appid}&redirect_uri=https://oauth.vk.com/blank.html&scope={scope}&response_type=token&v=5.131&display=wap");
             request.AllowAutoRedirect = false;
             request.CookieContainer = cookie_container;
             response = (HttpWebResponse)request.GetResponse();
