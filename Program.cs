@@ -46,7 +46,7 @@ namespace vkpostliker
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine($"{u.Login}: {e.Message}");
                 Console.WriteLine($"{u.Login}: failed");
             }
         }

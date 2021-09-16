@@ -349,7 +349,7 @@ public class Profile
         [JsonProperty("genre_id")]
         public int GenreId { get; set; }
 
-        [JsonProperty("is_hq", Required = Required.Always)]
+        [JsonProperty("is_hq")]
         public bool IsHq { get; set; }
 
         [JsonProperty("access_key")]

@@ -13,7 +13,7 @@ namespace sharpvk
     public class RequestSender
     {
         Token token;
-        string api_version = "5.80";
+        string api_version = "5.131";
         PaceController pcontroller;
 
 
